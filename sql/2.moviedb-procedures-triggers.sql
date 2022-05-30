@@ -1,5 +1,6 @@
 DELIMITER // 
 
+DROP PROCEDURE IF EXISTS sp_add_movie;
 CREATE PROCEDURE sp_add_movie(
     IN movie_title varchar(100),
     IN movie_runtime FLOAT,
@@ -15,8 +16,13 @@ VALUES(
     movie_runtime,
     movie_score,
     movie_rating,
-    (SELECT person_id FROM person WHERE (director_fname = person.fname AND director_lname = person.lname) LIMIT 1)
+    (SELECT person_id 
+        FROM person 
+        WHERE (director_fname = person.fname 
+            AND director_lname = person.lname) 
+        LIMIT 1
+    )
 );
 
 END //
-DELIMITER;
+DELIMITER ;

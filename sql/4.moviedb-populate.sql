@@ -14,17 +14,32 @@ VALUES ('Quentin', 'Tarantino', '1963-03-27'),
 ('Martin', 'Scorsese', '1942-11-17'),
 ('Peter', 'Jackson', '1961-10-31');
 
-INSERT INTO movie (title, runtime, score, rating, director_id )
-VALUES('Pulp Fiction', 154, 8.9, 'R', 1),
-('Django Unchained', 165, 8.4, 'R', 1),
-('Inglorious Basterds', 153, 8.3, 'R', 1),
-('Inception', 148, 8.8, 'PG-13', 9),
-('The Dark Knight', 152, 9.0, 'PG-13', 9),
-('The Dark Knight Rises', 164, 8.5, 'PG-13', 9),
-('Fight Club', 120, 8.8, 'R', 12),
-('Goodfellas', 145, 8.7, 'R', 13),
-('The Lord of the Rings: The Fellowship of the Ring', 178, 8.8, 'PG-13', 14),
-('The Lord of the Rings: The Two Towers', 179, 8.8, 'PG-13', 14);
+-- INSERT INTO movie (title, runtime, score, rating, director_id )
+-- VALUES('Pulp Fiction', 154, 8.9, 'R', 1),
+-- ('Django Unchained', 165, 8.4, 'R', 1),
+-- ('Inglorious Basterds', 153, 8.3, 'R', 1),
+-- ('Inception', 148, 8.8, 'PG-13', 9),
+-- ('The Dark Knight', 152, 9.0, 'PG-13', 9),
+-- ('The Dark Knight Rises', 164, 8.5, 'PG-13', 9),
+-- ('Fight Club', 120, 8.8, 'R', 12),
+-- ('Goodfellas', 145, 8.7, 'R', 13),
+-- ('The Lord of the Rings: The Fellowship of the Ring', 178, 8.8, 'PG-13', 14),
+-- ('The Lord of the Rings: The Two Towers', 179, 8.8, 'PG-13', 14);
+
+
+call sp_add_movie('Pulp Fiction', 154, 8.9, 'R', 'Quentin', 'Tarantino');
+call sp_add_movie('Django Unchained', 165, 8.4, 'R', 'Quentin', 'Tarantino');
+call sp_add_movie('Inglorious Basterds', 153, 8.3, 'R', 'Quentin', 'Tarantino');
+call sp_add_movie('Inception', 148, 8.8, 'PG-13', 'Christopher', 'Nolan');
+call sp_add_movie('The Dark Knight', 152, 9.0, 'PG-13', 'Christopher', 'Nolan');
+call sp_add_movie('The Dark Knight Rises', 164, 8.5, 'PG-13', 'Christopher', 'Nolan');
+call sp_add_movie('Fight Club', 120, 8.8, 'R', 'David', 'Fincher' );
+call sp_add_movie('Goodfellas', 145, 8.7, 'R', 'Martin', 'Scorsese');
+call sp_add_movie('The Lord of the Rings: The Fellowship of the Ring', 178, 8.8, 'PG-13', 'Peter', 'Jackson');
+call sp_add_movie('The Lord of the Rings: The Two Towers', 179, 8.8, 'PG-13', 'Peter', 'Jackson');
+
+
+
 
 INSERT INTO actorship (actor_id, movie_id, character_role)
 VALUES(2, 1, 'Jules Winniefield'),
