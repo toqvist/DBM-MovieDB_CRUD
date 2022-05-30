@@ -10,7 +10,6 @@ VALUES ('Quentin', 'Tarantino', '1963-03-27'),
 ('Christopher', 'Nolan', '1970-06-30'),
 ('Tom', 'Hardy', '1948-07-31'),
 ('Robert', 'Downey Jr.', '1969-04-04'),
-('Morgan', 'Freeman', '1937-09-06'),
 ('David', 'Fincher', '1962-08-28'),
 ('Martin', 'Scorsese', '1942-11-17'),
 ('Peter', 'Jackson', '1961-10-31');
@@ -22,10 +21,10 @@ VALUES('Pulp Fiction', 154, 8.9, 'R', 1),
 ('Inception', 148, 8.8, 'PG-13', 9),
 ('The Dark Knight', 152, 9.0, 'PG-13', 9),
 ('The Dark Knight Rises', 164, 8.5, 'PG-13', 9),
-('Fight Club', 120, 8.8, 'R', 13),
-('Goodfellas', 145, 8.7, 'R', 14),
-('The Lord of the Rings: The Fellowship of the Ring', 178, 8.8, 'PG-13', 15),
-('The Lord of the Rings: The Two Towers', 179, 8.8, 'PG-13', 15);
+('Fight Club', 120, 8.8, 'R', 12),
+('Goodfellas', 145, 8.7, 'R', 13),
+('The Lord of the Rings: The Fellowship of the Ring', 178, 8.8, 'PG-13', 14),
+('The Lord of the Rings: The Two Towers', 179, 8.8, 'PG-13', 14);
 
 INSERT INTO actorship (actor_id, movie_id, character_role)
 VALUES(2, 1, 'Jules Winniefield'),
