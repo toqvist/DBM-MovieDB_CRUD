@@ -1,9 +1,10 @@
 -- List all roles and movies that each actor has starred in.
-CREATE VIEW actors_in_movies AS 
+CREATE VIEW actor_in_movie AS 
 SELECT
   person.fname,
   person.lname,
-  movie.title
+  movie.title,
+  actorship.character_role
 FROM person
 JOIN actorship
   ON person.person_id = actorship.actor_id
@@ -11,13 +12,13 @@ JOIN movie
   ON movie.movie_id = actorship.movie_id;
 
 -- List all movies each person has directed
-CREATE VIEW directors_movies AS
+CREATE VIEW director_movie AS
 SELECT person.fname, person.lname, movie.title FROM person
 INNER JOIN movie 
 ON movie.director_id = person.person_id;
 
 -- For each genre, list every movie that has that genre amongst its genres
-CREATE VIEW movies_in_genres AS
+CREATE VIEW movie_in_genre AS
 SELECT 
 	genre.genre_name,
     movie.title
@@ -34,7 +35,7 @@ FROM movie
 ORDER BY movie.score DESC LIMIT 10;
 
 -- Display the premiere date for each movie, from oldest to newest
-CREATE VIEW oldest_movies AS
+CREATE VIEW oldest_movie AS
 SELECT movie.title, premiere.premiere_date 
 FROM movie
 JOIN premiere
