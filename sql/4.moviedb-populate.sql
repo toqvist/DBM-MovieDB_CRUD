@@ -1,3 +1,4 @@
+-- Add actors
 INSERT INTO person (fname, lname, birth_date)
 VALUES ('Quentin', 'Tarantino', '1963-03-27'),
 ('Samuel','Jackson', '1948-12-21'),
@@ -14,19 +15,7 @@ VALUES ('Quentin', 'Tarantino', '1963-03-27'),
 ('Martin', 'Scorsese', '1942-11-17'),
 ('Peter', 'Jackson', '1961-10-31');
 
--- INSERT INTO movie (title, runtime, score, rating, director_id )
--- VALUES('Pulp Fiction', 154, 8.9, 'R', 1),
--- ('Django Unchained', 165, 8.4, 'R', 1),
--- ('Inglorious Basterds', 153, 8.3, 'R', 1),
--- ('Inception', 148, 8.8, 'PG-13', 9),
--- ('The Dark Knight', 152, 9.0, 'PG-13', 9),
--- ('The Dark Knight Rises', 164, 8.5, 'PG-13', 9),
--- ('Fight Club', 120, 8.8, 'R', 12),
--- ('Goodfellas', 145, 8.7, 'R', 13),
--- ('The Lord of the Rings: The Fellowship of the Ring', 178, 8.8, 'PG-13', 14),
--- ('The Lord of the Rings: The Two Towers', 179, 8.8, 'PG-13', 14);
-
-
+-- Add movies
 call sp_add_movie('Pulp Fiction', 154, 8.9, 'R', 'Quentin', 'Tarantino');
 call sp_add_movie('Django Unchained', 165, 8.4, 'R', 'Quentin', 'Tarantino');
 call sp_add_movie('Inglorious Basterds', 153, 8.3, 'R', 'Quentin', 'Tarantino');
@@ -38,21 +27,17 @@ call sp_add_movie('Goodfellas', 145, 8.7, 'R', 'Martin', 'Scorsese');
 call sp_add_movie('The Lord of the Rings: The Fellowship of the Ring', 178, 8.8, 'PG-13', 'Peter', 'Jackson');
 call sp_add_movie('The Lord of the Rings: The Two Towers', 179, 8.8, 'PG-13', 'Peter', 'Jackson');
 
-
-
-
-INSERT INTO actorship (actor_id, movie_id, character_role)
-VALUES(2, 1, 'Jules Winniefield'),
-(2, 2, 'Stephen'),
-(2, 3, 'Narrator'),
-(1, 2, 'Robert (Bag Head)'),
-(3, 1, 'Vincent Vega'),
-(5, 7, 'Tyler Durden'),
-(5, 3, 'L.t. Aldo Raine'),
-(8, 2, 'Calvin Candie'),
-(8, 4, 'Dr. King Schultz'),
-(6, 8, 'James Conway');
-
+-- Add actorships
+call sp_add_actorship('Samuel', 'Jackson', 'Pulp Fiction', 'Jules Winnifield');
+call sp_add_actorship('Samuel', 'Jackson', 'Django Unchained', 'Stephen');
+call sp_add_actorship('Samuel', 'Jackson', 'Inglorious Basterds', 'Narrator');
+call sp_add_actorship('Quentin', 'Tarantino', 'Django Unchained', 'Robert (Bag Head)');
+call sp_add_actorship('John', 'Travolta', 'Pulp Fiction', 'Vincent Vega');
+call sp_add_actorship('Brad', 'Pitt', 'Fight Club', 'Tyler Durden');
+call sp_add_actorship('Brad', 'Pitt', 'Inglorious Basterds', 'L.t. Aldo Raine');
+call sp_add_actorship('Leonardo', 'DiCaprio', 'Django Unchained', 'Calvin Candie');
+call sp_add_actorship('Cristoph', 'Waltz', 'Django Unchained', 'Dr. King Schultz');
+call sp_add_actorship('Robert', 'De Niro', 'Goodfellas', 'James Conway');
 
 INSERT INTO genre(genre_name) 
 VALUES

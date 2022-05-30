@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS premiere (
 );
 
 CREATE TABLE IF NOT EXISTS actorship (
-    character_role VARCHAR(30) NOT NULL,
+    character_role VARCHAR(50) NOT NULL,
     actor_id INT NOT NULL,
     movie_id INT NOT NULL,
     PRIMARY KEY (actor_id, movie_id),
