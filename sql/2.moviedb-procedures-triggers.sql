@@ -81,27 +81,44 @@ END //
 
 -- ADD PREMIERE
 CREATE PROCEDURE sp_add_premiere (
-    IN p_country VARCHAR(100),
+    IN p_movie_title VARCHAR(100),
     IN p_premiere_date date,
-    IN p_movie_title VARCHAR(100)
+    IN p_country VARCHAR(100)
 )
 
 BEGIN
 INSERT INTO premiere (
-    country,
+    movie_id,
     premiere_date,
-    movie_id
+    country
 )
 VALUES(
-    p_country,
-    p_premiere_date,
     (SELECT movie_id 
         FROM movie
         WHERE (p_movie_title = movie.title)
         LIMIT 1
-    )
+    ),
+    p_premiere_date,
+    p_country
 );
 
+END //
+
+
+CREATE TRIGGER person_check_duplicate
+BEFORE INSERT ON person
+FOR EACH ROW
+BEGIN
+  IF (EXISTS(SELECT 1 FROM person 
+  WHERE (
+      person.fname = new.fname
+  AND person.lname = new.lname
+  AND person.birth_date = new.birth_date
+  )))
+  THEN 
+    SIGNAL SQLSTATE VALUE '45000' SET MESSAGE_TEXT = 'Query failed: Duplicate person entry.';
+
+  END IF;
 END //
 
 

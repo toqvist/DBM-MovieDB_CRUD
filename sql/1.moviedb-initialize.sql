@@ -21,9 +21,9 @@ CREATE TABLE IF NOT EXISTS movie (
 );
 
 CREATE TABLE IF NOT EXISTS premiere (
+    movie_id INT NOT NULL,
     country VARCHAR(100) NOT NULL,
     premiere_date date NOT NULL,
-    movie_id INT NOT NULL,
     PRIMARY KEY (movie_id),
     FOREIGN KEY (movie_id) REFERENCES movie(movie_id)
 );
