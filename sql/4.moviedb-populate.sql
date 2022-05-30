@@ -52,28 +52,28 @@ VALUES
 ('Fantasy'),
 ('War');
 
-INSERT INTO genreship(movie_id, genre_name)
-VALUES(3, 'Drama'),
-(3, 'War'),
-(3, 'Adventure'),
-(9, 'Fantasy'),
-(9, 'Adventure'),
-(9, 'Action'),
-(9, 'Drama'),
-(4, 'Action'),
-(4, 'Sci-Fi'),
-(8, 'Crime');
 
-INSERT INTO premiere(movie_id, premiere_date, country)
-VALUES(1, '1995-10-14', 'US'),
-(2, '2012-12-25', 'US'),
-(3, '2009-08-21', 'US'),
-(4, '2010-07-16', 'US'),
-(5, '2008-07-18', 'US'),
-(6, '2012-07-20', 'US'),
-(7, '1999-10-15', 'US'),
-(8, '1990-11-21', 'US'),
-(9, '2001-12-19', 'US'),
-(10, '2002-12-18', 'US');
+call sp_add_genreship('Inglorious Basterds', 'Drama');
+call sp_add_genreship('Inglorious Basterds', 'War');
+call sp_add_genreship('Inglorious Basterds', 'Adventure');
+call sp_add_genreship('The Lord of the Rings: The Fellowship of the Ring', 'Fantasy');
+call sp_add_genreship('The Lord of the Rings: The Fellowship of the Ring', 'Adventure');
+call sp_add_genreship('The Lord of the Rings: The Fellowship of the Ring', 'Action');
+call sp_add_genreship('The Lord of the Rings: The Fellowship of the Ring', 'Drama');
+call sp_add_genreship('Inception', 'Action');
+call sp_add_genreship('Inception', 'Sci-Fi');
+call sp_add_genreship('Goodfellas', 'Crime');
+
+-- Add premieres
+call sp_add_premiere('Pulp Fiction', '1995-10-14', 'US');
+call sp_add_premiere('Django Unchained', '2012-12-25', 'US');
+call sp_add_premiere('Inglorious Basterds', '2009-08-21', 'US');
+call sp_add_premiere('Inception', '2010-07-16', 'US');
+call sp_add_premiere('The Dark Knight', '2008-07-18', 'US');
+call sp_add_premiere('The Dark Knight Rises', '2012-07-20', 'US');
+call sp_add_premiere('Fight Club', '1999-10-15', 'US');
+call sp_add_premiere('Goodfellas', '1990-11-21', 'US');
+call sp_add_premiere('The Lord of the Rings: The Fellowship of the Ring', '2001-12-19', 'US');
+call sp_add_premiere('The Lord of the Rings: The Two Towers', '2002-12-18', 'US');
 
 
