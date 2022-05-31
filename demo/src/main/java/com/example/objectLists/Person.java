@@ -99,13 +99,14 @@ public class Person {
 		System.out.println(result);
 	}
 
-	public String toJson() {
+	public String getBeanAsJSON() {
 		String beansContent = "";
 		for (PersonBean personBean : this.persons) {
 			beansContent += personBean.toJson() + ",";
 		}
+		String result = "{" + jsonHelper.toJsonArray("Person", beansContent) + "}";
+		return result;
 
-		return jsonHelper.toJsonArray("Person", beansContent);
 	}
 
 	private PersonBean buildPersonBean (ResultSet resultSet) {

@@ -18,42 +18,26 @@ public class Main {
 
 		// ShowAllTables(connection);
 		
-		person.addPerson("Test", "Testsson", "2022-01-01");
-		person.renamePerson("Test", "Testsson", "Ändrad", "Namnsson");
-		person.showPersons();
-		person.deletePerson("Ändrad", "Namnsson");
-		person.showPersons();
+		// person.addPerson("Test", "Testsson", "2022-01-01");
+		// person.renamePerson("Test", "Testsson", "Ändrad", "Namnsson");
+		//System.out.println(person.getBeanAsJSON());
+		// person.deletePerson("Ändrad", "Namnsson");
+		// person.showPersons();
 
-
+		System.out.println(person.getBeanAsJSON());
 		connection.close();
 	}
 	
 	private static void ShowAllTables(Connection connection) {
-		
-		
+
 		ArrayList<String> outputDocument = new ArrayList<String>();
 		
 		Person person = new Person(connection); //This
-
-
-
-
-		outputDocument.add(person.toJson()); //Only these two lines are unique to each table
-
+		outputDocument.add(person.getBeanAsJSON()); //Only these two lines are unique to each table
 		String jsonDoc = jsonHelper.toJsonObjectFromStrings(outputDocument);
 
 		System.out.println(jsonDoc);
 
 	}
-	
-	// private static void updatePerson(Connection connection, String name) {
-	// 	Person myPerson = new Person(connection);
-
-	// 	int antal = myPerson.updatePerson(name, "malmo_the_greatest", -1);
-	// 	System.out.println("uppdaterat : " + antal);
-		
-	// 	antal = myPerson.updateActorsCity("s%", "v�xj�");
-	// 	System.out.println("uppdaterat : " + antal);		
-	// }
 	
 }
