@@ -18,10 +18,12 @@ public class Main {
 
 		// ShowAllTables(connection);
 		
-		
-		// person.renamePerson("Quentin", "Srubantino", "Quentin", "Tarantino");
-		//person.showPersons();
 		person.addPerson("Test", "Testsson", "2022-01-01");
+		person.renamePerson("Test", "Testsson", "Ändrad", "Namnsson");
+		person.showPersons();
+		person.deletePerson("Ändrad", "Namnsson");
+		person.showPersons();
+
 
 		connection.close();
 	}

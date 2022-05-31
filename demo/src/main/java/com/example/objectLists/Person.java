@@ -80,6 +80,25 @@ public class Person {
 		System.out.println(result);
 	}
 
+	public void deletePerson(String fname, String lname ) {
+
+		try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_deletePerson)) {
+			sqlQuery.setString(1, fname);
+			sqlQuery.setString(2, lname);
+			
+			System.out.println(sqlQuery);
+
+			sqlQuery.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println("addPerson exception");
+			e.printStackTrace();
+		}
+
+		String result = "Person deleted: " + fname + " " + lname;
+		System.out.println(result);
+	}
+
 	public String toJson() {
 		String beansContent = "";
 		for (PersonBean personBean : this.persons) {
