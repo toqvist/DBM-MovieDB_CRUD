@@ -1,9 +1,14 @@
 package com.example.beans;
 
+import java.util.ArrayList;
+import com.example.helpers.jsonHelper;
+import com.example.helpers.keyValuePair;
+
 public class PersonBean {
     String fname;
     String lname;
-    String birth_date;
+    String birthDate;
+    int id;
 
     public String getFname() {
         return fname;
@@ -22,10 +27,31 @@ public class PersonBean {
     }
 
     public String getBirth_date() {
-        return birth_date;
+        return birthDate;
     }
 
-    public void setBirth_date(String birth_date) {
-        this.birth_date = birth_date;
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+
     }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String toJson() {
+		ArrayList<keyValuePair> dataList = new ArrayList<keyValuePair>();
+        // fname, lname, birth_date, id
+		dataList.add(new keyValuePair("fname", this.fname));
+        dataList.add(new keyValuePair("lname", this.lname));
+		dataList.add(new keyValuePair("birth_date", this.birthDate));
+        dataList.add(new keyValuePair("id", Integer.toString(this.id)));
+		
+		return jsonHelper.toJsonObject(dataList);
+	}
+    
 }
