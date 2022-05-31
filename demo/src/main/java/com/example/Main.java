@@ -19,8 +19,9 @@ public class Main {
 		// ShowAllTables(connection);
 		
 		
-		person.renamePerson("Quentin", "Tarantino", "Quentin", "Srubantino");
+		// person.renamePerson("Quentin", "Srubantino", "Quentin", "Tarantino");
 		//person.showPersons();
+		person.addPerson("Test", "Testsson", "2022-01-01");
 
 		connection.close();
 	}

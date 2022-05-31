@@ -13,14 +13,36 @@ import com.mysql.cj.xdevapi.Result;
 public class Person {
 	private Connection connection;
 	private ArrayList<PersonBean> persons;
-
+	
+	private String query_addPerson = "INSERT INTO person (fname, lname, birth_date) VALUES (?, ?, ?)";
 	private String query_selectPerson = "SELECT * FROM person;";
 	private String query_renamePerson = "UPDATE person SET fname = ?, lname  = ? WHERE (person.fname = ? AND person.lname = ?);";
+	private String query_deletePerson = "DELETE FROM person WHERE (person.fname = ? AND person.lname = ?);";
 
 	public Person(Connection cn) {
 		this.connection = cn;
 		this.persons = new ArrayList<PersonBean>();
 		showPersons();
+	}
+
+	public void addPerson(String fname, String lname, String birthDate ) {
+
+		try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_addPerson)) {
+			sqlQuery.setString(1, fname);
+			sqlQuery.setString(2, lname);
+			sqlQuery.setString(3, birthDate);
+			
+			System.out.println(sqlQuery);
+
+			sqlQuery.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println("addPerson exception");
+			e.printStackTrace();
+		}
+
+		String result = "Person added: " + fname + " " + lname + " " + birthDate;
+		System.out.println(result);
 	}
 
 	public ArrayList<PersonBean> showPersons() {
