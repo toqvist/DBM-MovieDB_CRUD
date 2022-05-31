@@ -8,29 +8,28 @@ import java.util.ArrayList;
 
 import com.example.beans.PersonBean;
 import com.example.helpers.jsonHelper;
+import com.mysql.cj.xdevapi.Result;
 
 public class Person {
 	private Connection connection;
 	private ArrayList<PersonBean> persons;
 
-	private String selectAllPersons = "SELECT * FROM person;";
-	private String updateActors = "UPDATE person SET hometown = , actor_age  = ? WHERE actor_name = ?;";
-	private String updateActorsShort = "UPDATE actor SET hometown = ? WHERE actor_name = ?;";
-	private String updateActorCity = "UPDATE actor SET hometown = ? WHERE hometown LIKE ?;";
+	private String query_selectPerson = "SELECT * FROM person;";
+	private String query_renamePerson = "UPDATE person SET fname = ?, lname  = ? WHERE (person.fname = ? AND person.lname = ?);";
 
 	public Person(Connection cn) {
 		this.connection = cn;
 		this.persons = new ArrayList<PersonBean>();
-		getPersons();
+		showPersons();
 	}
 
-	public ArrayList<PersonBean> getPersons() {
+	public ArrayList<PersonBean> showPersons() {
 		if (this.persons.size() > 0) {
 			return this.persons;
 		}
 
 		this.persons = new ArrayList<PersonBean>();
-		try (PreparedStatement sqlQuery = this.connection.prepareStatement(selectAllPersons)) {
+		try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_selectPerson)) {
 			runQuery(sqlQuery);
 		} catch (SQLException e) {
 			System.out.println("getPersons exception for statement");
@@ -40,48 +39,23 @@ public class Person {
 		return this.persons;
 	}
 
-	public int updatePerson(String name, String newCity, int newAge) {
+	public void renamePerson(String oldFname, String oldLname, String newFname, String newLname ) {
 
-		String qry = "";
-		if (newAge == -1) {
-			qry = updateActorsShort;
-		} else {
-			qry = updateActors;
-		}
+		try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_renamePerson)) {
+			sqlQuery.setString(1, newFname);
+			sqlQuery.setString(2, newLname);
+			sqlQuery.setString(3, oldFname);
+			sqlQuery.setString(4, oldLname);
+			System.out.println(sqlQuery);
 
-		int count = -1;
-		try (PreparedStatement myQry = this.connection.prepareStatement(qry)) {
-			myQry.setString(1, newCity);
-
-			if (newAge == -1) {
-				myQry.setString(2, name);
-			} else {
-				myQry.setInt(2, newAge);
-				myQry.setString(3, name);
-			}
-
-			count = myQry.executeUpdate();
+			sqlQuery.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("updateActors exception for statement");
+			System.out.println("renamePerson exception");
 			e.printStackTrace();
 		}
 
-		return count;
-	}
-
-	public int updateActorsCity(String oldCity, String newCity) {
-
-		int count = -1;
-		try (PreparedStatement myQry = this.connection.prepareStatement(updateActorCity)) {
-			myQry.setString(1, newCity);
-			myQry.setString(2, oldCity);
-			count = myQry.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("updateActors exception for statement");
-			e.printStackTrace();
-		}
-
-		return count;
+		String result = "Renamed person: " + oldFname + ' ' + oldLname + " to " + newFname + ' ' + newLname;
+		System.out.println(result);
 	}
 
 	public String toJson() {
@@ -93,7 +67,7 @@ public class Person {
 		return jsonHelper.toJsonArray("Person", beansContent);
 	}
 
-	private PersonBean buildPerson(ResultSet resultSet) {
+	private PersonBean buildPersonBean (ResultSet resultSet) {
 		PersonBean personBean = new PersonBean();
 
 		try {
@@ -109,17 +83,17 @@ public class Person {
 		return personBean;
 	}
 
-	private void buildPersons(ResultSet resultSet) throws SQLException {
+	private void buildPersonBeans(ResultSet resultSet) throws SQLException {
 		while (resultSet.next()) { // rows
-			this.persons.add(buildPerson(resultSet));
+			this.persons.add(buildPersonBean(resultSet));
 		}
 	}
 
 	private void runQuery(PreparedStatement query) {
 		try (ResultSet resultSet = query.executeQuery()) {
-			buildPersons(resultSet);
+			buildPersonBeans(resultSet);
 		} catch (SQLException e) {
-			System.out.println("getActors exception for result set");
+			System.out.println("getPerson exception for result set");
 			e.printStackTrace();
 		}
 

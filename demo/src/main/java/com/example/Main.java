@@ -14,32 +14,43 @@ public class Main {
 	public static void main(String[] args) throws SQLException {
 		Connection connection = databaseHelper.DbConnect("moviedb");
 		
-		ShowAllTables(connection);
+		Person person = new Person(connection);
+
+		// ShowAllTables(connection);
 		
-		// updateActors(connection, "mikaela");
+		
+		person.renamePerson("Quentin", "Tarantino", "Quentin", "Srubantino");
+		//person.showPersons();
 
 		connection.close();
 	}
 	
 	private static void ShowAllTables(Connection connection) {
-		Person myPerson = new Person(connection);
 		
-		ArrayList<String> document = new ArrayList<String>();
-		document.add(myPerson.toJson());
+		
+		ArrayList<String> outputDocument = new ArrayList<String>();
+		
+		Person person = new Person(connection); //This
 
-		String jsonDoc = jsonHelper.toJsonObjectFromStrings(document);
+
+
+
+		outputDocument.add(person.toJson()); //Only these two lines are unique to each table
+
+		String jsonDoc = jsonHelper.toJsonObjectFromStrings(outputDocument);
 
 		System.out.println(jsonDoc);
 
 	}
 	
-	private static void updateActor(Connection connection, String name) {
-		Person myPerson = new Person(connection);
+	// private static void updatePerson(Connection connection, String name) {
+	// 	Person myPerson = new Person(connection);
 
-		int antal = myPerson.updatePerson(name, "malmo_the_greatest", -1);
-		System.out.println("uppdaterat : " + antal);
+	// 	int antal = myPerson.updatePerson(name, "malmo_the_greatest", -1);
+	// 	System.out.println("uppdaterat : " + antal);
 		
-		antal = myPerson.updateActorsCity("s%", "v�xj�");
-		System.out.println("uppdaterat : " + antal);		
-	}
+	// 	antal = myPerson.updateActorsCity("s%", "v�xj�");
+	// 	System.out.println("uppdaterat : " + antal);		
+	// }
+	
 }
