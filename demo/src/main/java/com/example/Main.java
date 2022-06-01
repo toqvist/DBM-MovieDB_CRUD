@@ -12,6 +12,7 @@ import com.example.helpers.jsonHelper;
 import com.example.helpers.keyValuePair;
 import com.example.objectLists.Person;
 import com.example.objectLists.Movie;
+import com.example.objectLists.Actorship;
 import com.example.objectLists.Genre;
 
 public class Main {
@@ -32,7 +33,8 @@ public class Main {
 			System.out.println("[4] - Test 'movie' CRUD operations");
 			System.out.println("[5] - Delete test person");
 			System.out.println("[6] - Test genre CRUD operations");
-			System.out.println("[7] - Add movie to person as actor.");
+			System.out.println("[7] - Add test movie --Remember to create test person first!");
+			System.out.println("[8] - Add movie to person as actor.");
 			
 			Scanner scanner = new Scanner(System.in);
             int userInput = 0;
@@ -81,6 +83,17 @@ public class Main {
 					deleteGenre(connection, "TestGenre2");
 					readGenres(connection);
 					break;
+				case 7: //Create test movie
+				addMovie(connection, "TestMovie", 120, 10.0f, "E", "Test", "Testsson");
+					break;
+				case 8: //Add movie to person as actor
+					addActorship(connection, "Test", "Testsson", "TestMovie", "Super Test Man");
+					changeRole(connection, "Evil Test Man", "Super Test Man");
+					readActorships(connection);
+					deleteActorship(connection, "Test", "Testsson", "TestMovie");
+					readActorships(connection);
+					break;
+				
 			}
 
 			//Wait for user input, so that the console does not become crowded with menu choices.
@@ -173,6 +186,34 @@ public class Main {
 	private static void deleteGenre(Connection connection, String genre) {
 		Genre genreObj = new Genre(connection);
 		genreObj.deleteGenre(genre);
+	}
+	
+	private static void addActorship(Connection connection, String fname, String lname, String title, String role) {
+		Person person = new Person(connection);
+		Movie movie = new Movie(connection);
+		Actorship actorship = new Actorship(connection, movie, person);
+		actorship.addActorship(fname, lname, title, role);
+	}
+
+	private static void readActorships (Connection connection) {
+		Person person = new Person(connection);
+		Movie movie = new Movie(connection);
+		Actorship actorship = new Actorship(connection, movie, person);
+		System.out.println(actorship.getBeansAsJSON());
+	}
+
+	private static void changeRole (Connection connection, String newRole, String oldRole) {
+		Person person = new Person(connection);
+		Movie movie = new Movie(connection);
+		Actorship actorship = new Actorship(connection, movie, person);
+		actorship.changeRole(newRole, oldRole);
+	}
+
+	private static void deleteActorship (Connection connection, String fname, String lname, String title) {
+		Person person = new Person(connection);
+		Movie movie = new Movie(connection);
+		Actorship actorship = new Actorship(connection, movie, person);
+		actorship.deleteActorship(fname, lname, title);
 	}
 
 

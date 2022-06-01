@@ -19,9 +19,9 @@ public class Actorship {
     //CALL sp_add_actorship('Samuel', 'Jackson', 'Pulp Fiction', 'Jules Winnifield');
 
     private String query_createActorship = "CALL sp_add_actorship(?,?,?,?);";
-    private String query_selectActorships = "SELECT * FROM actors_in_movie;";
+    private String query_selectActorships = "SELECT * FROM actor_in_movie;";
     private String query_changeRole = "UPDATE actor_in_movie SET character_role = ? WHERE character_role = ?;";
-    private String query_deleteActorship = "DELETE FROM actor_in_movie WHERE (movie_title AND fname = ? AND lname = ?);";
+    private String query_deleteActorship = "DELETE FROM actorship WHERE (actor_id = ? AND movie_id = ?);";
 
     Movie movie;
     Person person;
@@ -34,13 +34,13 @@ public class Actorship {
 		getActorships();
 	}
 
-	public void addActorship(String fname, String lname, String movie_title, String character_role) {
+	public void addActorship(String fname, String lname, String movieTitle, String role) {
 
 		try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_createActorship)) {
 			sqlQuery.setString(1, fname);
             sqlQuery.setString(2, lname);
-            sqlQuery.setString(3, movie_title);
-            sqlQuery.setString(4, character_role);
+            sqlQuery.setString(3, movieTitle);
+            sqlQuery.setString(4, role);
 			
 			System.out.println(sqlQuery);
 
@@ -51,7 +51,7 @@ public class Actorship {
 			e.printStackTrace();
 		}
 
-		String result = "Actorship added: " + fname + " " + lname + " in " + movie_title + " as " + character_role;
+		String result = "Actorship added: " + fname + " " + lname + " in " +  movieTitle + " as " + role;
 		System.out.println(result);
 	}
 
@@ -71,7 +71,7 @@ public class Actorship {
 		return this.actorships;
 	}
 
-	public void setScore(String newRole, String oldRole) {
+	public void changeRole(String newRole, String oldRole) {
 
 		try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_changeRole)) {
             sqlQuery.setString(1, newRole);
@@ -91,10 +91,15 @@ public class Actorship {
 
 	public void deleteActorship(String fname, String lname, String movieTitle) {
 
+		
+
 		try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_deleteActorship)) {
-			sqlQuery.setString(1, fname);
-            sqlQuery.setString(2, fname);
-            sqlQuery.setString(3, movieTitle);
+			
+			PersonBean personBean = person.findPersonBean(fname, lname);
+			MovieBean movieBean = movie.findMovieBean(movieTitle);
+
+			sqlQuery.setInt(1, personBean.getId());
+            sqlQuery.setInt(2, movieBean.getId());
 
 			
 			System.out.println(sqlQuery);
@@ -130,7 +135,7 @@ public class Actorship {
 
             String fname = resultSet.getString("fname");
             String lname = resultSet.getString("lname");
-            String movieTitle = resultSet.getString("movie_title");
+            String movieTitle = resultSet.getString("title");
 
             PersonBean personBean = person.findPersonBean(fname, lname);
             MovieBean movieBean = movie.findMovieBean(movieTitle);

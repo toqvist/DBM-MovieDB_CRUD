@@ -32,10 +32,6 @@ public class PersonBean {
         this.lname = lname;
     }
 
-    public String getBirth_date() {
-        return birthDate;
-    }
-
     public int getId() {
         return this.id;
     }
