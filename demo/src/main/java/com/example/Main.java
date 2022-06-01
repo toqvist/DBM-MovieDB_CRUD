@@ -12,6 +12,7 @@ import com.example.helpers.databaseHelper;
 import com.example.helpers.jsonHelper;
 import com.example.helpers.keyValuePair;
 import com.example.objectLists.Person;
+import com.example.objectLists.Premiere;
 import com.example.objectLists.Movie;
 import com.example.objectLists.Actorship;
 import com.example.objectLists.Genre;
@@ -41,6 +42,9 @@ public class Main {
 			System.out.println("[10] - Read genre relationships ");
 			System.out.println("[11] - Delete test genre from test movie ");
 			System.out.println("[12] - Create test genre");
+			System.out.println("[13] - Create test premiere");
+			System.out.println("[14] - Read premieres");
+			System.out.println("[15] - Delete test premiere");
 
 			Scanner scanner = new Scanner(System.in);
 			int userInput = 0;
@@ -111,6 +115,15 @@ public class Main {
 					break;
 				case 12:
 					addGenre(connection, "TestGenre");
+					break;
+				case 13:
+					addPremiere(connection, "TestMovie", "2022-01-01", "SE");
+					break;
+				case 14:
+					readPremieres(connection);
+					break;
+				case 15:
+					deletePremiere(connection, "TestMovie", "2022-01-01", "SE");
 					break;
 				default:
 					System.out.println("Invalid input");
@@ -260,4 +273,21 @@ public class Main {
 		genreship.deleteGenreship(title, genre);
 	}
 
+	private static void addPremiere(Connection connection, String movieTitle, String date, String country) {
+		Movie movie = new Movie(connection);
+		
+		movie.findMovieBean(movieTitle).addPremiere(date, country);
+	}
+
+	private static void readPremieres (Connection connection) {
+		Movie movie = new Movie(connection);
+		Premiere premiere = new Premiere(connection, movie);
+		System.out.println(premiere.getBeansAsJSON());
+	}
+
+	private static void deletePremiere(Connection connection, String movieTitle, String date, String country) {
+		Movie movie = new Movie(connection);
+		Premiere premiere = new Premiere(connection, movie);
+		premiere.deletePremiere(movieTitle, date, country);
+	}
 }

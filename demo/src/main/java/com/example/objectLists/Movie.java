@@ -17,7 +17,6 @@ public class Movie {
     private String query_selectMovie = "SELECT * FROM movie;";
     private String query_updateScore = "UPDATE movie SET score = ? WHERE movie.title = ?;";
     private String query_deleteMovie = "DELETE FROM movie WHERE movie.title = ?;";
- 
 
 
 	public Movie(Connection connection) {
@@ -102,8 +101,8 @@ public class Movie {
 
 	public String getBeansAsJSON() {
 		String beansContent = "";
-		for (MovieBean MovieBean : this.movies) {
-			beansContent += MovieBean.toJson() + ",";
+		for (MovieBean movieBean : this.movies) {
+			beansContent += movieBean.toJson() + ",";
 		}
 		
 		String result = "{" + jsonHelper.toJsonArray("Movie", beansContent) + "}";
@@ -113,21 +112,21 @@ public class Movie {
 
 
 	private MovieBean buildMovieBean (ResultSet resultSet) {
-		MovieBean MovieBean = new MovieBean();
+		MovieBean movieBean = new MovieBean();
 
 		try {
-			MovieBean.setId(resultSet.getInt("movie_id"));
-			MovieBean.setTitle(resultSet.getString("title"));
-			MovieBean.setRuntime(resultSet.getInt("runtime"));
-			MovieBean.setScore(resultSet.getFloat("score"));
-            MovieBean.setRating(resultSet.getString("rating"));
-            MovieBean.setDirectorId(resultSet.getInt("director_id"));
+			movieBean.setId(resultSet.getInt("movie_id"));
+			movieBean.setTitle(resultSet.getString("title"));
+			movieBean.setRuntime(resultSet.getInt("runtime"));
+			movieBean.setScore(resultSet.getFloat("score"));
+            movieBean.setRating(resultSet.getString("rating"));
+            movieBean.setDirectorId(resultSet.getInt("director_id"));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return MovieBean;
+		return movieBean;
 	}
 
 	private void buildMovieBeans(ResultSet resultSet) throws SQLException {
@@ -143,7 +142,6 @@ public class Movie {
 			System.out.println("getMovie exception for result set");
 			e.printStackTrace();
 		}
-
 	}
 
 	public MovieBean findMovieBean(String movieTitle) {
@@ -154,4 +152,6 @@ public class Movie {
 		}
 		return null;
 	}
+
+	
 }

@@ -70,8 +70,18 @@ public class MovieBean {
         this.id = id;
     }
 
-    public void addPremiereBean (PremiereBean premiereBean) {
+    public PremiereBean addPremiere (String date, String country) {
+        
+        PremiereBean premiereBean = new PremiereBean();
+        premiereBean.setDate(date);
+        premiereBean.setCountry(country);
+
         this.premieres.add(premiereBean);
+        return premiereBean;
+    }
+
+    public void findPremiere () {
+
     }
 
     public ArrayList<PremiereBean> getPremiereBeans () {
