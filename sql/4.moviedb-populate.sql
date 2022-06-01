@@ -16,28 +16,28 @@ VALUES ('Quentin', 'Tarantino', '1963-03-27'),
 ('Peter', 'Jackson', '1961-10-31');
 
 -- Add movies
-call sp_add_movie('Pulp Fiction', 154, 8.9, 'R', 'Quentin', 'Tarantino');
-call sp_add_movie('Django Unchained', 165, 8.4, 'R', 'Quentin', 'Tarantino');
-call sp_add_movie('Inglorious Basterds', 153, 8.3, 'R', 'Quentin', 'Tarantino');
-call sp_add_movie('Inception', 148, 8.8, 'PG-13', 'Christopher', 'Nolan');
-call sp_add_movie('The Dark Knight', 152, 9.0, 'PG-13', 'Christopher', 'Nolan');
-call sp_add_movie('The Dark Knight Rises', 164, 8.5, 'PG-13', 'Christopher', 'Nolan');
-call sp_add_movie('Fight Club', 120, 8.8, 'R', 'David', 'Fincher' );
-call sp_add_movie('Goodfellas', 145, 8.7, 'R', 'Martin', 'Scorsese');
-call sp_add_movie('The Lord of the Rings: The Fellowship of the Ring', 178, 8.8, 'PG-13', 'Peter', 'Jackson');
-call sp_add_movie('The Lord of the Rings: The Two Towers', 179, 8.8, 'PG-13', 'Peter', 'Jackson');
+CALL sp_add_movie('Pulp Fiction', 154, 8.9, 'R', 'Quentin', 'Tarantino');
+CALL sp_add_movie('Django Unchained', 165, 8.4, 'R', 'Quentin', 'Tarantino');
+CALL sp_add_movie('Inglorious Basterds', 153, 8.3, 'R', 'Quentin', 'Tarantino');
+CALL sp_add_movie('Inception', 148, 8.8, 'PG-13', 'Christopher', 'Nolan');
+CALL sp_add_movie('The Dark Knight', 152, 9.0, 'PG-13', 'Christopher', 'Nolan');
+CALL sp_add_movie('The Dark Knight Rises', 164, 8.5, 'PG-13', 'Christopher', 'Nolan');
+CALL sp_add_movie('Fight Club', 120, 8.8, 'R', 'David', 'Fincher' );
+CALL sp_add_movie('Goodfellas', 145, 8.7, 'R', 'Martin', 'Scorsese');
+CALL sp_add_movie('The Lord of the Rings: The Fellowship of the Ring', 178, 8.8, 'PG-13', 'Peter', 'Jackson');
+CALL sp_add_movie('The Lord of the Rings: The Two Towers', 179, 8.8, 'PG-13', 'Peter', 'Jackson');
 
 -- Add actorships
-call sp_add_actorship('Samuel', 'Jackson', 'Pulp Fiction', 'Jules Winnifield');
-call sp_add_actorship('Samuel', 'Jackson', 'Django Unchained', 'Stephen');
-call sp_add_actorship('Samuel', 'Jackson', 'Inglorious Basterds', 'Narrator');
-call sp_add_actorship('Quentin', 'Tarantino', 'Django Unchained', 'Robert (Bag Head)');
-call sp_add_actorship('John', 'Travolta', 'Pulp Fiction', 'Vincent Vega');
-call sp_add_actorship('Brad', 'Pitt', 'Fight Club', 'Tyler Durden');
-call sp_add_actorship('Brad', 'Pitt', 'Inglorious Basterds', 'L.t. Aldo Raine');
-call sp_add_actorship('Leonardo', 'DiCaprio', 'Django Unchained', 'Calvin Candie');
-call sp_add_actorship('Cristoph', 'Waltz', 'Django Unchained', 'Dr. King Schultz');
-call sp_add_actorship('Robert', 'De Niro', 'Goodfellas', 'James Conway');
+CALL sp_add_actorship('Samuel', 'Jackson', 'Pulp Fiction', 'Jules Winnifield');
+CALL sp_add_actorship('Samuel', 'Jackson', 'Django Unchained', 'Stephen');
+CALL sp_add_actorship('Samuel', 'Jackson', 'Inglorious Basterds', 'Narrator');
+CALL sp_add_actorship('Quentin', 'Tarantino', 'Django Unchained', 'Robert (Bag Head)');
+CALL sp_add_actorship('John', 'Travolta', 'Pulp Fiction', 'Vincent Vega');
+CALL sp_add_actorship('Brad', 'Pitt', 'Fight Club', 'Tyler Durden');
+CALL sp_add_actorship('Brad', 'Pitt', 'Inglorious Basterds', 'L.t. Aldo Raine');
+CALL sp_add_actorship('Leonardo', 'DiCaprio', 'Django Unchained', 'Calvin Candie');
+CALL sp_add_actorship('Cristoph', 'Waltz', 'Django Unchained', 'Dr. King Schultz');
+CALL sp_add_actorship('Robert', 'De Niro', 'Goodfellas', 'James Conway');
 
 INSERT INTO genre(genre_name) 
 VALUES

@@ -13,7 +13,7 @@ public class Movie {
 	private Connection connection;
 	private ArrayList<MovieBean> movies;
 	
-    private String query_createMovie = "CALL sp_add_movie(?,?,?,?,?);";
+    private String query_createMovie = "CALL sp_add_movie(?,?,?,?,?, ?);";
     private String query_selectMovie = "SELECT * FROM movie;";
     private String query_updateScore = "UPDATE movie SET score = ? WHERE movie.title = ?;";
     private String query_deleteMovie = "DELETE FROM movie WHERE movie.title = ?;";
@@ -26,12 +26,12 @@ public class Movie {
 		getmovies();
 	}
 
-	public void addMovie(String title, String runtime, String score, String rating, String director_fname, String director_lname) {
+	public void addMovie(String title, int runtime, float score, String rating, String director_fname, String director_lname) {
 
 		try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_createMovie)) {
 			sqlQuery.setString(1, title);
-			sqlQuery.setString(2, runtime);
-			sqlQuery.setString(3, score);
+			sqlQuery.setInt(2, runtime);
+			sqlQuery.setFloat(3, score);
             sqlQuery.setString(4, rating);
             sqlQuery.setString(5, director_fname);
             sqlQuery.setString(6, director_lname);
@@ -64,11 +64,11 @@ public class Movie {
 		return this.movies;
 	}
 
-	public void setScore(String title, float newScore) {
+	public void setScore(float newScore, String title) {
 
 		try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_updateScore)) {
-			sqlQuery.setFloat(1, newScore);
-            sqlQuery.setString(1, title);
+            sqlQuery.setFloat(1, newScore);
+            sqlQuery.setString(2, title);
 			
 			System.out.println(sqlQuery);
 
@@ -92,7 +92,7 @@ public class Movie {
 			sqlQuery.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("addMovie exception");
+			System.out.println("deleteMovie exception");
 			e.printStackTrace();
 		}
 

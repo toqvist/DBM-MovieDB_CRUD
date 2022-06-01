@@ -1,9 +1,11 @@
 package com.example;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.example.helpers.databaseHelper;
 import com.example.helpers.jsonHelper;
@@ -15,7 +17,6 @@ public class Main {
 	public static void main(String[] args) throws SQLException {
 		Connection connection = databaseHelper.DbConnect("moviedb");
 
-		int selection = 0;
 		boolean selectionLoop = true;
 
 
@@ -31,8 +32,17 @@ public class Main {
 			System.out.println("[3] - Add test person for movie CRUD -- run this before 4");
 			System.out.println("[4] - Test 'movie' CRUD operations");
 			
+			Scanner scanner = new Scanner(System.in);
+            int userInput=0;
 
-			switch (selection) {
+            try {
+                    
+                userInput = scanner.nextInt();
+            } catch (Exception e) {
+                System.out.println("Input must be a valid integer from printed choices!");
+            } 
+
+			switch (userInput) {
 				case 0: // Do nothing
 					break;
 				case 1: // Exit application
@@ -53,14 +63,21 @@ public class Main {
 					break;
 				case 4: //Test CRUD for table movie
 					readMovies(connection);
-					addMovie(connection, "TestMovie", "1:00", "10", "G", "Test", "Testsson");
+					addMovie(connection, "TestMovie", 120, 10.0f, "E", "Test", "Testsson");
 					setScore(connection, "TestMovie", 9.9f);
 					readMovies(connection);
 					deleteMovie(connection, "TestMovie");
 				break;
 			}
 
-
+			//Wait for user input, so that the console does not become crowded with menu choices.
+            System.out.println("[ Press any key to continue ]");
+            try {
+				System.in.read();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		// ShowAllTables(connection);
@@ -107,7 +124,7 @@ public class Main {
 		System.out.println(movie.getBeansAsJSON());
 	}
 
-	private static void addMovie(Connection connection, String title, String runtime, String score, String rating, String director_fname, String director_lname) {
+	private static void addMovie(Connection connection, String title, int runtime, float score, String rating, String director_fname, String director_lname) {
 
 		Movie movie = new Movie(connection);
 		movie.addMovie(title, runtime, score, rating, director_fname, director_lname);
@@ -115,7 +132,7 @@ public class Main {
 
 	private static void setScore (Connection connection, String title, float newScore) {
 		Movie movie = new Movie(connection);
-		movie.setScore(title, newScore);
+		movie.setScore(newScore, title);
 	}
 
 	private static void deleteMovie(Connection connection, String title) {
