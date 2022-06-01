@@ -20,12 +20,10 @@ public class Main {
 
 		boolean selectionLoop = true;
 
-
-
 		while (selectionLoop) {
 
 			System.out.println("----------------------------------------------------");
-			System.out.println("WELCOME TO MOVIEDB");
+			System.out.println("WELCOME TO MOVIEDB!");
 			System.out.println("----------------------------------------------------");
 			System.out.println("Each test will create, update and delete a row, showing the changes before and after.");
             System.out.println("[1] - Exit Application");

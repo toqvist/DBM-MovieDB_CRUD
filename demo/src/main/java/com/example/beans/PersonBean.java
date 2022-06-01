@@ -12,6 +12,10 @@ public class PersonBean {
 
     ArrayList<MovieBean> actorships;
 
+    public PersonBean() {
+		this.actorships = new ArrayList<MovieBean>();
+	}
+
     public String getFname() {
         return fname;
     }
@@ -32,11 +36,6 @@ public class PersonBean {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-
-    }
-
     public int getId() {
         return this.id;
     }
@@ -45,8 +44,21 @@ public class PersonBean {
         this.id = id;
     }
 
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+
+    }
+
     public String getBirthDate() {
         return this.birthDate;
+    }
+
+    public ArrayList<MovieBean> getActorships() {
+        return actorships;
+    }
+
+    public void addActorship(MovieBean movieBean) {
+        this.actorships.add(movieBean);
     }
 
 

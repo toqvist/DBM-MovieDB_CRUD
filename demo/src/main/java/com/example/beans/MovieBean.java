@@ -17,8 +17,10 @@ public class MovieBean {
     ArrayList<GenreBean> genres;
 
     public MovieBean () {
-
-    }
+        this.actors = new ArrayList<PersonBean>();
+        this.premieres = new ArrayList<PremiereBean>();
+        this.genres = new ArrayList<GenreBean>();
+	}
 
     public String getTitle() {
         return this.title;
@@ -66,6 +68,30 @@ public class MovieBean {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void addPremiereBean (PremiereBean premiereBean) {
+        this.premieres.add(premiereBean);
+    }
+
+    public ArrayList<PremiereBean> getPremiereBeans () {
+        return this.premieres;
+    }
+
+    public void addGenreBean (GenreBean genreBean) {
+        this.genres.add(genreBean);
+    }
+
+    public ArrayList<GenreBean> getGenreBeans () {
+        return this.genres;
+    }
+
+    public void addActorBean (PersonBean actorBean) {
+        this.actors.add(actorBean);
+    }
+
+    public ArrayList<PersonBean> getActorBeans () {
+        return this.actors;
     }
 
     public String toJson() {

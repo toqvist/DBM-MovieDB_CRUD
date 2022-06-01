@@ -15,13 +15,9 @@ public class Genre {
 	
     private String query_createGenre = "INSERT INTO genre(genre_name) VALUES (?);";
     private String query_selectGenre = "SELECT * FROM genre;";
-
-
     private String query_renameGenre = "UPDATE genre SET  genre_name = ? WHERE genre.genre_name = ?;";
     private String query_deleteGenre = "DELETE FROM genre WHERE genre.genre_name = ?;";
  
-
-
 
 	public Genre(Connection connection) {
 		this.connection = connection;
@@ -112,7 +108,6 @@ public class Genre {
 		GenreBean GenreBean = new GenreBean();
 
 		try {
-			// GenreBean.setId(resultSet.getInt("genre_id"));
 			GenreBean.setName(resultSet.getString("genre_name"));
 
 		} catch (SQLException e) {
