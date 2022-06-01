@@ -17,8 +17,8 @@ public class Genre {
     private String query_selectGenre = "SELECT * FROM genre;";
 
 
-    private String query_updateScore = "UPDATE genre SET  genre_name = ? WHERE genre_name = ?;";
-    private String query_deleteGenre = "DELETE FROM Genre WHERE Genre.title = ?;";
+    private String query_renameGenre = "UPDATE genre SET  genre_name = ? WHERE genre.genre_name = ?;";
+    private String query_deleteGenre = "DELETE FROM genre WHERE genre.genre_name = ?;";
  
 
 
@@ -60,9 +60,9 @@ public class Genre {
 		return this.Genres;
 	}
 
-	public void renameGenre(String oldGenre, String newGenre) {
+	public void renameGenre(String newGenre, String oldGenre) {
 
-		try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_updateScore)) {
+		try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_renameGenre)) {
             sqlQuery.setString(1, newGenre);
             sqlQuery.setString(2, oldGenre);
 			
@@ -112,7 +112,7 @@ public class Genre {
 		GenreBean GenreBean = new GenreBean();
 
 		try {
-			GenreBean.setId(resultSet.getInt("genre_id"));
+			// GenreBean.setId(resultSet.getInt("genre_id"));
 			GenreBean.setName(resultSet.getString("genre_name"));
 
 		} catch (SQLException e) {

@@ -12,6 +12,7 @@ import com.example.helpers.jsonHelper;
 import com.example.helpers.keyValuePair;
 import com.example.objectLists.Person;
 import com.example.objectLists.Movie;
+import com.example.objectLists.Genre;
 
 public class Main {
 	public static void main(String[] args) throws SQLException {
@@ -31,9 +32,11 @@ public class Main {
 			System.out.println("[2] - Test 'person' CRUD operations");
 			System.out.println("[3] - Add test person for movie CRUD -- run this before 4");
 			System.out.println("[4] - Test 'movie' CRUD operations");
+			System.out.println("[5] - Delete test person");
+			System.out.println("[6] - Test genre CRUD operations");
 			
 			Scanner scanner = new Scanner(System.in);
-            int userInput=0;
+            int userInput = 0;
 
             try {
                     
@@ -68,6 +71,17 @@ public class Main {
 					readMovies(connection);
 					deleteMovie(connection, "TestMovie");
 				break;
+				case 5: //Delete test person
+					deletePerson(connection, "Test", "Testsson");
+					break;
+				case 6: //Test CRUD for table genre
+					readGenres(connection);
+					addGenre(connection, "TestGenre");
+					renameGenre(connection, "TestGenre2", "TestGenre");
+					readGenres(connection);
+					deleteGenre(connection, "TestGenre2");
+					readGenres(connection);
+					break;
 			}
 
 			//Wait for user input, so that the console does not become crowded with menu choices.
@@ -139,5 +153,27 @@ public class Main {
 		Movie movie = new Movie(connection);
 		movie.deleteMovie(title);
 	}
+
+	//Generate CRUD methods for genre table
+	private static void readGenres(Connection connection) {
+		Genre genreObj = new Genre(connection);
+		System.out.println(genreObj.getBeansAsJSON());
+	}
+
+	private static void addGenre(Connection connection, String genre) {
+		Genre genreObj = new Genre(connection);
+		genreObj.addGenre(genre);
+	}
+
+	private static void renameGenre (Connection connection, String newGenre, String oldGenre) {
+		Genre genreObj = new Genre(connection);
+		genreObj.renameGenre(newGenre, oldGenre);
+	}
+
+	private static void deleteGenre(Connection connection, String genre) {
+		Genre genreObj = new Genre(connection);
+		genreObj.deleteGenre(genre);
+	}
+
 
 }
