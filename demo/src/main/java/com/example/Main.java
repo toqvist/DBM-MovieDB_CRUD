@@ -15,6 +15,7 @@ import com.example.objectLists.Person;
 import com.example.objectLists.Movie;
 import com.example.objectLists.Actorship;
 import com.example.objectLists.Genre;
+import com.example.objectLists.Genreship;
 
 public class Main {
 	public static void main(String[] args) throws SQLException {
@@ -28,24 +29,28 @@ public class Main {
 			System.out.println("WELCOME TO MOVIEDB!");
 			System.out.println("----------------------------------------------------");
 			System.out.println("Each test will create, update and delete a row, showing the changes before and after.");
-            System.out.println("[1] - Exit Application");
+			System.out.println("[1] - Exit Application");
 			System.out.println("[2] - Test 'person' CRUD operations");
 			System.out.println("[3] - Add test person for movie CRUD -- run this before 4");
 			System.out.println("[4] - Test 'movie' CRUD operations");
 			System.out.println("[5] - Delete test person");
 			System.out.println("[6] - Test genre CRUD operations");
 			System.out.println("[7] - Add test movie --Remember to create test person first!");
-			System.out.println("[8] - Add movie to person as actor.");
-			
-			Scanner scanner = new Scanner(System.in);
-            int userInput = 0;
+			System.out.println("[8] - Test actorship CRUD operations.");
+			System.out.println("[9] - Add test genre to  test movie");
+			System.out.println("[10] - Read genre relationships ");
+			System.out.println("[11] - Delete test genre from test movie ");
+			System.out.println("[12] - Create test genre");
 
-            try {
-                    
-                userInput = scanner.nextInt();
-            } catch (Exception e) {
-                System.out.println("Input must be a valid integer from printed choices!");
-            } 
+			Scanner scanner = new Scanner(System.in);
+			int userInput = 0;
+
+			try {
+
+				userInput = scanner.nextInt();
+			} catch (Exception e) {
+				System.out.println("Input must be a valid integer from printed choices!");
+			}
 
 			switch (userInput) {
 				case 0: // Do nothing
@@ -63,20 +68,20 @@ public class Main {
 					deletePerson(connection, "Ändrad", "Namnsson");
 					readPersons(connection);
 					break;
-				case 3: //Add person for testing movie CRUD operations
+				case 3: // Add person for testing movie CRUD operations
 					addPerson(connection, "Test", "Testsson", "2022-01-01");
 					break;
-				case 4: //Test CRUD for table movie
+				case 4: // Test CRUD for table movie
 					readMovies(connection);
 					addMovie(connection, "TestMovie", 120, 10.0f, "E", "Test", "Testsson");
 					setScore(connection, "TestMovie", 9.9f);
 					readMovies(connection);
 					deleteMovie(connection, "TestMovie");
-				break;
-				case 5: //Delete test person
+					break;
+				case 5: // Delete test person
 					deletePerson(connection, "Test", "Testsson");
 					break;
-				case 6: //Test CRUD for table genre
+				case 6: // Test CRUD for table genre
 					readGenres(connection);
 					addGenre(connection, "TestGenre");
 					renameGenre(connection, "TestGenre2", "TestGenre");
@@ -84,10 +89,10 @@ public class Main {
 					deleteGenre(connection, "TestGenre2");
 					readGenres(connection);
 					break;
-				case 7: //Create test movie
-				addMovie(connection, "TestMovie", 120, 10.0f, "E", "Test", "Testsson");
+				case 7: // Create test movie
+					addMovie(connection, "TestMovie", 120, 10.0f, "E", "Test", "Testsson");
 					break;
-				case 8: //Add movie to person as actor
+				case 8: // Add movie to person as actor
 					addActorship(connection, "Test", "Testsson", "TestMovie", "Super Test Man");
 					readActorships(connection);
 					changeRole(connection, "Evil Test Man", "Super Test Man");
@@ -95,18 +100,28 @@ public class Main {
 					deleteActorship(connection, "Test", "Testsson", "TestMovie");
 					readActorships(connection);
 					break;
-				case 9: //Add genre to movie
-					addGenreToMovie("TestGenre", "TestMovie");
-					removeGenreFromMovie("TestGenre", "TestMovie");
-					readMovieGenres("TestMovie");
+				case 9: // Add test genre to movie
+					addGenreship(connection, "TestGenre", "TestMovie");
 					break;
-
+				case 10:
+					readGenreships(connection);
+					break;
+				case 11:
+					deleteGenreship(connection, "TestGenre", "TestMovie");
+					break;
+				case 12:
+					addGenre(connection, "TestGenre");
+					break;
+				default:
+					System.out.println("Invalid input");
+					break;
 			}
 
-			//Wait for user input, so that the console does not become crowded with menu choices.
-            userInput = 0;
+			// Wait for user input, so that the console does not become crowded with menu
+			// choices.
+			userInput = 0;
 			System.out.println("[ Press any key to continue ]");
-            try {
+			try {
 				System.in.read();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -115,7 +130,7 @@ public class Main {
 		}
 
 		// ShowAllTables(connection);
-		
+
 		connection.close();
 	}
 
@@ -130,7 +145,6 @@ public class Main {
 		System.out.println(jsonDoc);
 
 	}
-
 
 	private static void readPersons(Connection connection) {
 		Person person = new Person(connection);
@@ -158,13 +172,14 @@ public class Main {
 		System.out.println(movie.getBeansAsJSON());
 	}
 
-	private static void addMovie(Connection connection, String title, int runtime, float score, String rating, String director_fname, String director_lname) {
+	private static void addMovie(Connection connection, String title, int runtime, float score, String rating,
+			String director_fname, String director_lname) {
 
 		Movie movie = new Movie(connection);
 		movie.addMovie(title, runtime, score, rating, director_fname, director_lname);
 	}
 
-	private static void setScore (Connection connection, String title, float newScore) {
+	private static void setScore(Connection connection, String title, float newScore) {
 		Movie movie = new Movie(connection);
 		movie.setScore(newScore, title);
 	}
@@ -174,7 +189,7 @@ public class Main {
 		movie.deleteMovie(title);
 	}
 
-	//Generate CRUD methods for genre table
+	// Generate CRUD methods for genre table
 	private static void readGenres(Connection connection) {
 		Genre genreObj = new Genre(connection);
 		System.out.println(genreObj.getBeansAsJSON());
@@ -185,7 +200,7 @@ public class Main {
 		genreObj.addGenre(genre);
 	}
 
-	private static void renameGenre (Connection connection, String newGenre, String oldGenre) {
+	private static void renameGenre(Connection connection, String newGenre, String oldGenre) {
 		Genre genreObj = new Genre(connection);
 		genreObj.renameGenre(newGenre, oldGenre);
 	}
@@ -194,7 +209,7 @@ public class Main {
 		Genre genreObj = new Genre(connection);
 		genreObj.deleteGenre(genre);
 	}
-	
+
 	private static void addActorship(Connection connection, String fname, String lname, String title, String role) {
 		Person person = new Person(connection);
 		Movie movie = new Movie(connection);
@@ -202,35 +217,47 @@ public class Main {
 		actorship.addActorship(fname, lname, title, role);
 	}
 
-	private static void readActorships (Connection connection) {
+	private static void readActorships(Connection connection) {
 		Person person = new Person(connection);
 		Movie movie = new Movie(connection);
 		Actorship actorship = new Actorship(connection, movie, person);
 		System.out.println(actorship.getBeansAsJSON());
 	}
 
-	private static void changeRole (Connection connection, String newRole, String oldRole) {
+	private static void changeRole(Connection connection, String newRole, String oldRole) {
 		Person person = new Person(connection);
 		Movie movie = new Movie(connection);
 		Actorship actorship = new Actorship(connection, movie, person);
 		actorship.changeRole(newRole, oldRole);
 	}
 
-	private static void deleteActorship (Connection connection, String fname, String lname, String title) {
+	private static void deleteActorship(Connection connection, String fname, String lname, String title) {
 		Person person = new Person(connection);
 		Movie movie = new Movie(connection);
 		Actorship actorship = new Actorship(connection, movie, person);
 		actorship.deleteActorship(fname, lname, title);
 	}
 
-	public void readMovieGenres(Connection connection, String title) {
+	private static void readGenreships(Connection connection) {
 		Movie movie = new Movie(connection);
 		Genre genre = new Genre(connection);
 		Genreship genreship = new Genreship(connection, genre, movie);
 
-
-		System.out.println(movie.getBeansAsJSON());
+		System.out.println(genreship.getBeansAsJSON());
 	}
 
+	private static void addGenreship(Connection connection, String genre, String title) {
+		Movie movie = new Movie(connection);
+		Genre genreObj = new Genre(connection);
+		Genreship genreship = new Genreship(connection, genreObj, movie);
+		genreship.createGenreship(title, genre);
+	}
+
+	private static void deleteGenreship(Connection connection, String genre, String title) {
+		Movie movie = new Movie(connection);
+		Genre genreObj = new Genre(connection);
+		Genreship genreship = new Genreship(connection, genreObj, movie);
+		genreship.deleteGenreship(title, genre);
+	}
 
 }

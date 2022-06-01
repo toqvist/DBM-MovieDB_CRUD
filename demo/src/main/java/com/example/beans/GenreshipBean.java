@@ -10,12 +10,6 @@ public class GenreshipBean {
     GenreBean genre;
     MovieBean movie;
 
-
-    // public GenreshipBean(GenreBean genre, MovieBean movie) {
-    //     this.genre = genre;
-    //     this.movie = movie;
-    // }
-
     public GenreBean getGenre() {
         return genre;
     }
