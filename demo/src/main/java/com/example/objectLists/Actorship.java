@@ -15,8 +15,6 @@ public class Actorship {
 	private Connection connection;
 
 	private ArrayList<ActorshipBean> actorships;
-	
-    //CALL sp_add_actorship('Samuel', 'Jackson', 'Pulp Fiction', 'Jules Winnifield');
 
     private String query_createActorship = "CALL sp_add_actorship(?,?,?,?);";
     private String query_selectActorships = "SELECT * FROM actor_in_movie;";

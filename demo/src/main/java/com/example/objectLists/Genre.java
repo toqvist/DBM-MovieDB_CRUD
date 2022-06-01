@@ -11,7 +11,7 @@ import com.example.helpers.jsonHelper;
 
 public class Genre {
 	private Connection connection;
-	private ArrayList<GenreBean> Genres;
+	private ArrayList<GenreBean> genres;
 	
     private String query_createGenre = "INSERT INTO genre(genre_name) VALUES (?);";
     private String query_selectGenre = "SELECT * FROM genre;";
@@ -21,7 +21,7 @@ public class Genre {
 
 	public Genre(Connection connection) {
 		this.connection = connection;
-		this.Genres = new ArrayList<GenreBean>();
+		this.genres = new ArrayList<GenreBean>();
 		getGenres();
 	}
 
@@ -42,18 +42,18 @@ public class Genre {
 	}
 
 	public ArrayList<GenreBean> getGenres() {
-		if (this.Genres.size() > 0) {
-			return this.Genres;
+		if (this.genres.size() > 0) {
+			return this.genres;
 		}
 
-		this.Genres = new ArrayList<GenreBean>();
+		this.genres = new ArrayList<GenreBean>();
 		try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_selectGenre)) {
 			runQuery(sqlQuery);
 		} catch (SQLException e) {
 			System.out.println("getmGenres exception");			e.printStackTrace();
 		}
 
-		return this.Genres;
+		return this.genres;
 	}
 
 	public void renameGenre(String newGenre, String oldGenre) {
@@ -94,7 +94,7 @@ public class Genre {
 
 	public String getBeansAsJSON() {
 		String beansContent = "";
-		for (GenreBean genreBean : this.Genres) {
+		for (GenreBean genreBean : this.genres) {
 			beansContent += genreBean.toJson() + ",";
 		}
 		
@@ -119,7 +119,7 @@ public class Genre {
 
 	private void buildGenreBeans(ResultSet resultSet) throws SQLException {
 		while (resultSet.next()) { // rows
-			this.Genres.add(buildGenreBean(resultSet));
+			this.genres.add(buildGenreBean(resultSet));
 		}
 	}
 
@@ -130,7 +130,15 @@ public class Genre {
 			System.out.println("getGenre exception for result set");
 			e.printStackTrace();
 		}
+	}
 
+	public GenreBean findGenreBean(String genreName) {
+		for(GenreBean genreBean : this.genres) {
+			if (genreBean.getName().equals(genreName)) {
+				return genreBean;
+			}
+		}
+		return null;
 	}
 
 }

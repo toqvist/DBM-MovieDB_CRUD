@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.example.beans.GenreshipBean;
 import com.example.helpers.databaseHelper;
 import com.example.helpers.jsonHelper;
 import com.example.helpers.keyValuePair;
@@ -94,7 +95,11 @@ public class Main {
 					deleteActorship(connection, "Test", "Testsson", "TestMovie");
 					readActorships(connection);
 					break;
-				// case 9: //Add genre to movie
+				case 9: //Add genre to movie
+					addGenreToMovie("TestGenre", "TestMovie");
+					removeGenreFromMovie("TestGenre", "TestMovie");
+					readMovieGenres("TestMovie");
+					break;
 
 			}
 
@@ -216,6 +221,15 @@ public class Main {
 		Movie movie = new Movie(connection);
 		Actorship actorship = new Actorship(connection, movie, person);
 		actorship.deleteActorship(fname, lname, title);
+	}
+
+	public void readMovieGenres(Connection connection, String title) {
+		Movie movie = new Movie(connection);
+		Genre genre = new Genre(connection);
+		Genreship genreship = new Genreship(connection, genre, movie);
+
+
+		System.out.println(movie.getBeansAsJSON());
 	}
 
 
