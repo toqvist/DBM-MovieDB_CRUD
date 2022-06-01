@@ -12,12 +12,12 @@ public class MovieBean {
     int directorId;
     int id;
 
-    ArrayList<PersonBean> actors;
+    ArrayList<ActorshipBean> actors;
     ArrayList<PremiereBean> premieres;
     ArrayList<GenreBean> genres;
 
     public MovieBean () {
-        this.actors = new ArrayList<PersonBean>();
+        this.actors = new ArrayList<ActorshipBean>();
         this.premieres = new ArrayList<PremiereBean>();
         this.genres = new ArrayList<GenreBean>();
 	}
@@ -86,11 +86,11 @@ public class MovieBean {
         return this.genres;
     }
 
-    public void addActorBean (PersonBean actorBean) {
-        this.actors.add(actorBean);
+    public void addActorBean (ActorshipBean actorship) {
+        this.actors.add(actorship);
     }
 
-    public ArrayList<PersonBean> getActorBeans () {
+    public ArrayList<ActorshipBean> getActorBeans () {
         return this.actors;
     }
 

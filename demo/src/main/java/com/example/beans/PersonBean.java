@@ -10,10 +10,10 @@ public class PersonBean {
     String birthDate;
     int id;
 
-    ArrayList<MovieBean> actorships;
+    ArrayList<ActorshipBean> actorships;
 
     public PersonBean() {
-		this.actorships = new ArrayList<MovieBean>();
+		this.actorships = new ArrayList<ActorshipBean>();
 	}
 
     public String getFname() {
@@ -53,12 +53,12 @@ public class PersonBean {
         return this.birthDate;
     }
 
-    public ArrayList<MovieBean> getActorships() {
+    public ArrayList<ActorshipBean> getActorships() {
         return actorships;
     }
 
-    public void addActorship(MovieBean movieBean) {
-        this.actorships.add(movieBean);
+    public void addActorship(ActorshipBean actorshipBean) {
+        this.actorships.add(actorshipBean);
     }
 
 
