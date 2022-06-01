@@ -12,6 +12,14 @@ public class MovieBean {
     int directorId;
     int id;
 
+    ArrayList<PersonBean> actors;
+    ArrayList<PremiereBean> premieres;
+    ArrayList<GenreBean> genres;
+
+    public MovieBean () {
+
+    }
+
     public String getTitle() {
         return this.title;
     }

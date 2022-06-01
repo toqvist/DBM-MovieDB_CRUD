@@ -10,6 +10,8 @@ public class PersonBean {
     String birthDate;
     int id;
 
+    ArrayList<MovieBean> actorships;
+
     public String getFname() {
         return fname;
     }
@@ -42,6 +44,11 @@ public class PersonBean {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getBirthDate() {
+        return this.birthDate;
+    }
+
 
     public String toJson() {
 		ArrayList<keyValuePair> dataList = new ArrayList<keyValuePair>();
