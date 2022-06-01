@@ -19,10 +19,10 @@ public class Person {
 	private String query_renamePerson = "UPDATE person SET fname = ?, lname  = ? WHERE (person.fname = ? AND person.lname = ?);";
 	private String query_deletePerson = "DELETE FROM person WHERE (person.fname = ? AND person.lname = ?);";
 
-	public Person(Connection cn) {
-		this.connection = cn;
+	public Person(Connection connection) {
+		this.connection = connection;
 		this.persons = new ArrayList<PersonBean>();
-		showPersons();
+		getPersons();
 	}
 
 	public void addPerson(String fname, String lname, String birthDate ) {
@@ -45,7 +45,7 @@ public class Person {
 		System.out.println(result);
 	}
 
-	public ArrayList<PersonBean> showPersons() {
+	public ArrayList<PersonBean> getPersons() {
 		if (this.persons.size() > 0) {
 			return this.persons;
 		}
@@ -99,14 +99,25 @@ public class Person {
 		System.out.println(result);
 	}
 
-	public String getBeanAsJSON() {
+	public String getBeansAsJSON() {
 		String beansContent = "";
 		for (PersonBean personBean : this.persons) {
 			beansContent += personBean.toJson() + ",";
 		}
+		
 		String result = "{" + jsonHelper.toJsonArray("Person", beansContent) + "}";
 		return result;
 
+	}
+
+	public String beansToJson(ArrayList <PersonBean> persons) {
+		String beansContent = "";
+		for (PersonBean personBean : persons) {
+			beansContent += personBean.toJson() + ",";
+		}
+		
+		String result = "{" + jsonHelper.toJsonArray("Person", beansContent) + "}";
+		return result;
 	}
 
 	private PersonBean buildPersonBean (ResultSet resultSet) {
