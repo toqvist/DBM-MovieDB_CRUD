@@ -32,6 +32,7 @@ public class Main {
 			System.out.println("[4] - Test 'movie' CRUD operations");
 			System.out.println("[5] - Delete test person");
 			System.out.println("[6] - Test genre CRUD operations");
+			System.out.println("[7] - Add movie to person as actor.");
 			
 			Scanner scanner = new Scanner(System.in);
             int userInput = 0;
@@ -83,7 +84,8 @@ public class Main {
 			}
 
 			//Wait for user input, so that the console does not become crowded with menu choices.
-            System.out.println("[ Press any key to continue ]");
+            userInput = 0;
+			System.out.println("[ Press any key to continue ]");
             try {
 				System.in.read();
 			} catch (IOException e) {
@@ -93,7 +95,7 @@ public class Main {
 		}
 
 		// ShowAllTables(connection);
-
+		
 		connection.close();
 	}
 

@@ -23,7 +23,7 @@ public class Movie {
 	public Movie(Connection connection) {
 		this.connection = connection;
 		this.movies = new ArrayList<MovieBean>();
-		getmovies();
+		getMovies();
 	}
 
 	public void addMovie(String title, int runtime, float score, String rating, String director_fname, String director_lname) {
@@ -49,7 +49,7 @@ public class Movie {
 		System.out.println(result);
 	}
 
-	public ArrayList<MovieBean> getmovies() {
+	public ArrayList<MovieBean> getMovies() {
 		if (this.movies.size() > 0) {
 			return this.movies;
 		}
@@ -144,5 +144,14 @@ public class Movie {
 			e.printStackTrace();
 		}
 
+	}
+
+	public MovieBean findMovieBean(String movieTitle) {
+		for(MovieBean MovieBean : this.movies) {
+			if (MovieBean.getTitle().equals(movieTitle)) {
+				return MovieBean;
+			}
+		}
+		return null;
 	}
 }

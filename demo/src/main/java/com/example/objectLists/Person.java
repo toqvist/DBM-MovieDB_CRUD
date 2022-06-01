@@ -141,4 +141,14 @@ public class Person {
 		}
 
 	}
+
+	public PersonBean findPersonBean(String fname, String lname) {
+		
+		for (PersonBean person : this.persons) {
+			if (person.getFname().equals(fname) && person.getLname().equals(lname)) {
+				return person;
+			}
+		}
+		return null;
+	} 
 }

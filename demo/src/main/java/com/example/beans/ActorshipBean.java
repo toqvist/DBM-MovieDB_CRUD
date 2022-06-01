@@ -35,5 +35,17 @@ public class ActorshipBean {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public String toJson() {
+		ArrayList<keyValuePair> dataList = new ArrayList<keyValuePair>();
+        // fname, lname, birth_date, id
+		dataList.add(new keyValuePair("fname", this.actor.fname));
+        dataList.add(new keyValuePair("lname", this.actor.lname));
+		dataList.add(new keyValuePair("movie_title", this.movie.title));
+        dataList.add(new keyValuePair("character_role", this.role));
+
+		
+		return jsonHelper.toJsonObject(dataList);
+	}
     
 }
