@@ -64,7 +64,7 @@ public class Actorship {
 		try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_selectActorships)) {
 			runQuery(sqlQuery);
 		} catch (SQLException e) {
-			System.out.println("getmActorships exception");			
+			System.out.println("getActorships exception");			
             e.printStackTrace();
 		}
 
@@ -142,6 +142,7 @@ public class Actorship {
 
             actorshipBean.setActor(personBean);
             actorshipBean.setMovie(movieBean);
+			actorshipBean.setRole(resultSet.getString("character_role"));
 
 		} catch (SQLException e) {
 			e.printStackTrace();

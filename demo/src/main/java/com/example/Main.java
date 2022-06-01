@@ -88,12 +88,14 @@ public class Main {
 					break;
 				case 8: //Add movie to person as actor
 					addActorship(connection, "Test", "Testsson", "TestMovie", "Super Test Man");
+					readActorships(connection);
 					changeRole(connection, "Evil Test Man", "Super Test Man");
 					readActorships(connection);
 					deleteActorship(connection, "Test", "Testsson", "TestMovie");
 					readActorships(connection);
 					break;
-				
+				// case 9: //Add genre to movie
+
 			}
 
 			//Wait for user input, so that the console does not become crowded with menu choices.
