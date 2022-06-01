@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import com.example.beans.PersonBean;
 import com.example.helpers.jsonHelper;
-import com.mysql.cj.xdevapi.Result;
 
 public class Person {
 	private Connection connection;
@@ -110,15 +109,6 @@ public class Person {
 
 	}
 
-	public String beansToJson(ArrayList <PersonBean> persons) {
-		String beansContent = "";
-		for (PersonBean personBean : persons) {
-			beansContent += personBean.toJson() + ",";
-		}
-		
-		String result = "{" + jsonHelper.toJsonArray("Person", beansContent) + "}";
-		return result;
-	}
 
 	private PersonBean buildPersonBean (ResultSet resultSet) {
 		PersonBean personBean = new PersonBean();

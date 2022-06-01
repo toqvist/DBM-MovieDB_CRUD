@@ -46,7 +46,8 @@ public class Main {
 					deletePerson(connection, "Ändrad", "Namnsson");
 					readPersons(connection);
 					break;
-				case 3:
+				case 3: //Test CRUD for table movie
+					readMovies();
 
 				break;
 				case 4: // Test CRUD for table genre
@@ -83,14 +84,15 @@ public class Main {
 
 	}
 
-	private static void addPerson(Connection connection, String fname, String lname, String birthDate) {
-		Person person = new Person(connection);
-		person.addPerson("Test", "Testsson", "2022-01-01");
-	}
 
 	private static void readPersons(Connection connection) {
 		Person person = new Person(connection);
 		System.out.println(person.getBeansAsJSON());
+	}
+
+	private static void addPerson(Connection connection, String fname, String lname, String birthDate) {
+		Person person = new Person(connection);
+		person.addPerson("Test", "Testsson", "2022-01-01");
 	}
 
 	private static void renamePerson(Connection connection, String oldFname, String oldLname, String newFname,
