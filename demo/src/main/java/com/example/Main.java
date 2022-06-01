@@ -9,6 +9,7 @@ import com.example.helpers.databaseHelper;
 import com.example.helpers.jsonHelper;
 import com.example.helpers.keyValuePair;
 import com.example.objectLists.Person;
+import com.example.objectLists.Movie;
 
 public class Main {
 	public static void main(String[] args) throws SQLException {
@@ -27,8 +28,9 @@ public class Main {
 			System.out.println("Each test will create, update and delete a row, showing the changes before and after.");
             System.out.println("[1] - Exit Application");
 			System.out.println("[2] - Test 'person' CRUD operations");
-			System.out.println("[3] - Test 'movie' CRUD operations");
-			System.out.println("[4] - Test 'genre' CRUD operations");
+			System.out.println("[3] - Add test person for movie CRUD -- run this before 4");
+			System.out.println("[4] - Test 'movie' CRUD operations");
+			
 
 			switch (selection) {
 				case 0: // Do nothing
@@ -46,22 +48,16 @@ public class Main {
 					deletePerson(connection, "Ändrad", "Namnsson");
 					readPersons(connection);
 					break;
-				case 3: //Test CRUD for table movie
-					readMovies();
-
-				break;
-				case 4: // Test CRUD for table genre
-					// readGenres(connection);
-					// // Add test genre
-					// addGenre(connection, "Testgenre");
-					// readGenres(connection);
-					// // Rename test genre
-					// renameGenre(connection, "Testgenre", "Ändrad");
-					// readGenres(connection);
-					// // Delete test genre
-					// deleteGenre(connection, "Ändrad");
-					// readGenres(connection);
+				case 3: //Add person for testing movie CRUD operations
+					addPerson(connection, "Test", "Testsson", "2022-01-01");
 					break;
+				case 4: //Test CRUD for table movie
+					readMovies(connection);
+					addMovie(connection, "TestMovie", "1:00", "10", "G", "Test", "Testsson");
+					setScore(connection, "TestMovie", 9.9f);
+					readMovies(connection);
+					deleteMovie(connection, "TestMovie");
+				break;
 			}
 
 
@@ -104,6 +100,27 @@ public class Main {
 	private static void deletePerson(Connection connection, String fname, String lname) {
 		Person person = new Person(connection);
 		person.deletePerson(fname, lname);
+	}
+
+	private static void readMovies(Connection connection) {
+		Movie movie = new Movie(connection);
+		System.out.println(movie.getBeansAsJSON());
+	}
+
+	private static void addMovie(Connection connection, String title, String runtime, String score, String rating, String director_fname, String director_lname) {
+
+		Movie movie = new Movie(connection);
+		movie.addMovie(title, runtime, score, rating, director_fname, director_lname);
+	}
+
+	private static void setScore (Connection connection, String title, float newScore) {
+		Movie movie = new Movie(connection);
+		movie.setScore(title, newScore);
+	}
+
+	private static void deleteMovie(Connection connection, String title) {
+		Movie movie = new Movie(connection);
+		movie.deleteMovie(title);
 	}
 
 }

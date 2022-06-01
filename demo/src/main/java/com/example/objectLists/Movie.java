@@ -45,7 +45,7 @@ public class Movie {
 			e.printStackTrace();
 		}
 
-		String result = "Movie added: " + fname + " " + lname + " " + birthDate;
+		String result = "Movie added: " + title;
 		System.out.println(result);
 	}
 
@@ -58,36 +58,34 @@ public class Movie {
 		try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_selectMovie)) {
 			runQuery(sqlQuery);
 		} catch (SQLException e) {
-			System.out.println("getmovies exception for statement");
-			e.printStackTrace();
+			System.out.println("getmMovies exception");			e.printStackTrace();
 		}
 
 		return this.movies;
 	}
 
-	public void renameMovie(String oldFname, String oldLname, String newFname, String newLname ) {
+	public void setScore(String title, float newScore) {
 
 		try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_updateScore)) {
-			sqlQuery.setString(1, newFname);
+			sqlQuery.setFloat(1, newScore);
+            sqlQuery.setString(1, title);
 			
-            
 			System.out.println(sqlQuery);
 
 			sqlQuery.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("renameMovie exception");
+			System.out.println("setScore exception");
 			e.printStackTrace();
 		}
 
-		String result = "Renamed Movie: " + oldFname + ' ' + oldLname + " to " + newFname + ' ' + newLname;
+		String result = "Set new score: " + newScore + " for " + title;
 		System.out.println(result);
 	}
 
-	public void deleteMovie(String fname, String lname ) {
+	public void deleteMovie(String title) {
 
 		try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_deleteMovie)) {
-			sqlQuery.setString(1, fname);
-			sqlQuery.setString(2, lname);
+			sqlQuery.setString(1, title);
 			
 			System.out.println(sqlQuery);
 
@@ -98,7 +96,7 @@ public class Movie {
 			e.printStackTrace();
 		}
 
-		String result = "Movie deleted: " + fname + " " + lname;
+		String result = "Movie deleted: " + title;
 		System.out.println(result);
 	}
 
