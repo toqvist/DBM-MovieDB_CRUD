@@ -41,3 +41,12 @@ FROM movie
 JOIN premiere
 ON movie.movie_id = premiere.movie_id
 ORDER BY premiere.premiere_date ASC;
+
+-- Display the premiere date for each movie, from oldest to newest
+CREATE VIEW movie_premiere AS
+SELECT movie.title, premiere.premiere_date, premiere.country 
+FROM movie
+JOIN premiere
+ON movie.movie_id = premiere.movie_id
+ORDER BY movie.title DESC;
+
