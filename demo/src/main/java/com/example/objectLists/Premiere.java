@@ -17,12 +17,8 @@ public class Premiere {
     private Movie movie;
 
 	private String query_createPremiere = "CALL sp_add_premiere(?, ?, ?);";
-    private String query_selectPremiere = "SELECT * FROM oldest_movie WHERE title = ? ;";
-	private String query_deletePremiere = "DELETE FROM premiere WHERE (title = ? AND date = ? AND country = ?);";
-
-	//FOR PREMIERES
-	//Find moviebean
-	//Add premierebean to moviebean.premieres
+    private String query_selectPremiere = "SELECT * FROM movie_premiere;";
+	private String query_deletePremiere = "DELETE FROM premiere WHERE (premiere.movie_id = ? AND premiere.premiere_date = ? AND country = ?);";
 
     public Premiere (Connection connection, Movie movie) {
 		this.connection = connection;
@@ -58,6 +54,7 @@ public class Premiere {
         }
 
         this.premieres = new ArrayList<PremiereBean>();
+
         try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_selectPremiere)) {
             runQuery(sqlQuery);
         } catch (SQLException e) {
@@ -69,13 +66,19 @@ public class Premiere {
     }
 
     
-    public void deletePremiere(String title, String date, String country) {
+    public void deletePremiere(String movieTitle, String date, String country) {
+
+        //Find premiere id by filtering with title, date, country
+
+        
 
         try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_deletePremiere)) {
-            sqlQuery.setString(1, title);
+            
+            MovieBean movieBean = movie.findMovieBean(movieTitle);
+            sqlQuery.setInt(1, movieBean.getId());
             sqlQuery.setString(2, date);
             sqlQuery.setString(3, country);
-
+            
             System.out.println(sqlQuery);
 
             sqlQuery.executeUpdate();
@@ -85,7 +88,7 @@ public class Premiere {
             e.printStackTrace();
         }
 
-        String result = "Premiere deleted: " + title + " " + date + " " + country;
+        String result = "Premiere deleted: " + movieTitle + " " + date + " " + country;
         System.out.println(result);
     }
 
@@ -108,7 +111,7 @@ public class Premiere {
             //Find the moviebean that has a premiere
             MovieBean movieBean = movie.findMovieBean(resultSet.getString("title"));
             //Add premiere to correct moviebean, save the returned premierebean
-            premiereBean = movieBean.addPremiere(resultSet.getString("date"), resultSet.getString("country"));
+            premiereBean = movieBean.addPremiere(resultSet.getString("premiere_date"), resultSet.getString("country"));
         
 
         } catch (SQLException e) {

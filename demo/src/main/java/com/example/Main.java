@@ -275,8 +275,8 @@ public class Main {
 
 	private static void addPremiere(Connection connection, String movieTitle, String date, String country) {
 		Movie movie = new Movie(connection);
-		
-		movie.findMovieBean(movieTitle).addPremiere(date, country);
+		Premiere premiere = new Premiere(connection, movie);
+		premiere.addPremiere(movieTitle, date, country);
 	}
 
 	private static void readPremieres (Connection connection) {
