@@ -28,8 +28,7 @@ public class GenreshipBean {
 
     public String toJson() {
 		ArrayList<keyValuePair> dataList = new ArrayList<keyValuePair>();
-        // fname, lname, birth_date, id
-	
+        	
 		dataList.add(new keyValuePair("movie_title", this.movie.getTitle()));
         dataList.add(new keyValuePair("genre_name", this.genre.getName()));
 

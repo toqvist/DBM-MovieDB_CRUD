@@ -60,7 +60,7 @@ public class PersonBean {
 
     public String toJson() {
 		ArrayList<keyValuePair> dataList = new ArrayList<keyValuePair>();
-        // fname, lname, birth_date, id
+        
 		dataList.add(new keyValuePair("fname", this.fname));
         dataList.add(new keyValuePair("lname", this.lname));
 		dataList.add(new keyValuePair("birth_date", this.birthDate));

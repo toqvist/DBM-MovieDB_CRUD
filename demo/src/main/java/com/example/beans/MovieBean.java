@@ -80,15 +80,6 @@ public class MovieBean {
         return premiereBean;
     }
 
-    public PremiereBean findPremiere (String date, String country) {
-
-        for (PremiereBean premiereBean : this.premieres) {
-            if (premiereBean.getDate().equals(date) && premiereBean.getCountry().equals(country)) {
-                return premiereBean;
-            }
-        }
-        return null;
-    }
 
     public ArrayList<PremiereBean> getPremiereBeans () {
         return this.premieres;

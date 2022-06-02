@@ -6,11 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.example.beans.ActorshipBean;
 import com.example.beans.GenreBean;
 import com.example.beans.GenreshipBean;
 import com.example.beans.MovieBean;
-import com.example.beans.PersonBean;
 import com.example.helpers.jsonHelper;
 
 public class Genreship {

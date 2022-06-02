@@ -68,10 +68,6 @@ public class Premiere {
     
     public void deletePremiere(String movieTitle, String date, String country) {
 
-        //Find premiere id by filtering with title, date, country
-
-        
-
         try (PreparedStatement sqlQuery = this.connection.prepareStatement(query_deletePremiere)) {
             
             MovieBean movieBean = movie.findMovieBean(movieTitle);
